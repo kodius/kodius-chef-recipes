@@ -5,10 +5,12 @@ Recepie for custom nginx.conf file generation that supports Let's Encrypt SSL ce
 1. You need to edit your App settings to include custom chef recepies
 
 
+
 <img width="931" alt="screen shot 2016-12-26 at 17 16 08" src="https://cloud.githubusercontent.com/assets/24574228/21484294/8aaf27fa-cb90-11e6-93ea-30267bc113ed.png">
 
+You need to change 'Use Custom Chef cookbooks' to "Yes"
 
-Put this is "Repository URL"
+Put this value as "Repository URL"
 
 ```
 git@github.com:kodius/kodius-chef-recepies.git
@@ -20,8 +22,6 @@ So it looks like this:
 
 
 2. Adding custom step in App setup
-
-Add this custom step:
 
 ```
 kodius-recepies::production_environment
