@@ -20,6 +20,8 @@ So it looks like this:
 
 <img width="982" alt="screen shot 2016-12-26 at 17 16 41" src="https://cloud.githubusercontent.com/assets/24574228/21484295/8ca5d518-cb90-11e6-83ed-2899cc914ec8.png">
 
+For everything to work it is also important to enable "Manage Berkshelf" option, so dependencies will be installed automatically.
+
 
 2. Adding custom step in App setup
 
