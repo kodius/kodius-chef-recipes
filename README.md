@@ -1,8 +1,8 @@
-# Let's Encrypt / Nginx / OpsWorks Chef Recepie
+# Let's Encrypt / Nginx / OpsWorks Chef Recipes
 
-Recepie for custom nginx.conf file generation that supports Let's Encrypt SSL certificate for Rails apps
+Recipes for custom nginx.conf file generation that supports Let's Encrypt SSL certificate for Rails apps
 
-## 1. You need to edit your App settings to include custom chef recepies
+## 1. You need to edit your App settings to include custom chef recipes
 
 <img width="931" alt="screen shot 2016-12-26 at 17 16 08" src="https://cloud.githubusercontent.com/assets/24574228/21484294/8aaf27fa-cb90-11e6-93ea-30267bc113ed.png">
 
@@ -11,7 +11,7 @@ You need to change 'Use Custom Chef cookbooks' to "Yes"
 Put this value as "Repository URL"
 
 ```
-git@github.com:kodius/kodius-chef-recepies.git
+git@github.com:kodius/kodius-chef-recipes.git
 ```
 
 So it looks like this:
@@ -23,10 +23,10 @@ For everything to work it is also important to enable "Manage Berkshelf" option,
 
 ## 2. You need to add custom step in App setup
 
-This is added in "Layer Recepies" section
+This is added in "Layer Recipes" section
 
 ```
-kodius-recepies::production_environment
+kodius-recipes::production_environment
 ```
 
 It should look like this:
