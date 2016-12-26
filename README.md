@@ -18,6 +18,7 @@ So it looks like this:
 
 <img width="982" alt="screen shot 2016-12-26 at 17 16 41" src="https://cloud.githubusercontent.com/assets/24574228/21484295/8ca5d518-cb90-11e6-83ed-2899cc914ec8.png">
 
+
 For everything to work it is also important to enable "Manage Berkshelf" option, so dependencies will be installed automatically.
 
 
@@ -31,4 +32,4 @@ kodius-recipes::production_environment
 
 It should look like this:
 
-<img width="657" alt="screen shot 2016-12-26 at 17 25 20" src="https://cloud.githubusercontent.com/assets/24574228/21484296/8e801510-cb90-11e6-8d16-f8802e22d971.png">
+<img width="789" alt="screen shot 2016-12-26 at 18 05 48" src="https://cloud.githubusercontent.com/assets/24574228/21484597/02587aae-cb96-11e6-8a25-b87ad635c0cf.png">
