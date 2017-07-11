@@ -132,7 +132,7 @@
 	       rewrite        ^ https://<%= @application[:domains].first %>$request_uri? permanent;
 	}
 
-<% elsif @application[:environment_variables]["ENABLE_LOAD_BALANCER"].to_s == "true" %> %>
+<% elsif @application[:environment_variables]["ENABLE_LOAD_BALANCER"].to_s == "true" %> 
   upstream unicorn_<%= @application[:domains].first %> {
    server unix:<%= @application[:deploy_to]%>/shared/sockets/unicorn.sock fail_timeout=0;
   }
