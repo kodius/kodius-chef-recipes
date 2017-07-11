@@ -132,7 +132,7 @@
 	       rewrite        ^ https://<%= @application[:domains].first %>$request_uri? permanent;
 	}
 
-<% elsif @application[:environment_variables]["ENABLE_LOAD_BALANCER"].to_s == "true" %> 
+<% elsif @application[:environment_variables]["ENABLE_LOAD_BALANCER"].to_s == "true" %>
   upstream unicorn_<%= @application[:domains].first %> {
    server unix:<%= @application[:deploy_to]%>/shared/sockets/unicorn.sock fail_timeout=0;
   }
@@ -158,6 +158,16 @@
     access_log <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>.access.log;
     <%end %>
 
+    gzip on;
+    gzip_http_version 1.0;
+    gzip_proxied any;
+    gzip_min_length 500;
+    gzip_disable "MSIE [1-6]\.";
+    gzip_types text/plain text/xml text/css
+             text/comma-separated-values
+             text/javascript application/x-javascript
+             application/atom+xml;
+
     keepalive_timeout 5;
 
     root <%= @application[:absolute_document_root] %>;
@@ -174,6 +184,23 @@
     if (-f $document_root/system/maintenance.html) {
       return 503;
     }
+
+
+    # blog redirect
+    <% if @application[:environment_variables]["FLEXBLOGREDIRECT"].to_s == "true" %>
+      set $host_without_www $host;
+      if ($host ~ www\.(.*).*) {
+        set $host_without_www $1;
+      }
+
+      location ~ /posts/(.*) {
+          return 301 http://blog.$host_without_www/$1;
+      }
+
+      location ~ /posts {
+        return 301 http://blog.$host_without_www/;
+      }
+    <% end %>
 
     error_page 503 @maintenance;
     location @maintenance {
