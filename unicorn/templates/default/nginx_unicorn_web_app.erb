@@ -172,8 +172,8 @@
 
     root <%= @application[:absolute_document_root] %>;
 
-    <% if @application[:nginx] && @application[:nginx][:client_max_body_size] %>
-      client_max_body_size <%= @application[:nginx][:client_max_body_size] %>;
+    <% if @application["nginx"] && @application["nginx"]["client_max_body_size"] %>
+      client_max_body_size <%= @application["nginx"]["client_max_body_size"] %>;
     <% end %>
 
 
