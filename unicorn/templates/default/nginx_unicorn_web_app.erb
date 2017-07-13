@@ -114,24 +114,6 @@
     }
   }
 
-	server {
-	       listen         80;
-	       server_name    www.<%= @application[:domains].first %>;
-	       rewrite        ^ https://<%= @application[:domains].first %>$request_uri? permanent;
-	}
-
-	server {
-	       listen         80;
-	       server_name    <%= @application[:domains].first %>;
-	       rewrite        ^ https://<%= @application[:domains].first %>$request_uri? permanent;
-	}
-
-	server {
-	       listen         443;
-	       server_name    www.<%= @application[:domains].first %>;
-	       rewrite        ^ https://<%= @application[:domains].first %>$request_uri? permanent;
-	}
-
 <% elsif @application[:environment_variables]["ENABLE_LOAD_BALANCER"].to_s == "true" %>
   upstream unicorn_<%= @application[:domains].first %> {
    server unix:<%= @application[:deploy_to]%>/shared/sockets/unicorn.sock fail_timeout=0;
@@ -144,6 +126,20 @@
     if ($http_x_forwarded_proto != "https") {
       rewrite ^(.*)$ https://$server_name$1 permanent;
     }
+  }
+
+  server {
+    listen 80;
+    server_name flexcareers.com.au flexcareers.co.nz <%= node[:hostname] %>;
+
+    rewrite ^(.*)$ https://www.$server_name$1 permanent;
+  }
+
+  server {
+    listen 1443;
+    server_name flexcareers.com.au flexcareers.co.nz <%= node[:hostname] %>;
+
+    rewrite ^(.*)$ https://www.$server_name$1 permanent;
   }
 
   server {
