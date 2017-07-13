@@ -119,28 +119,6 @@
    server unix:<%= @application[:deploy_to]%>/shared/sockets/unicorn.sock fail_timeout=0;
   }
 
-  server {
-    listen 80;
-    server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
-
-    if ($http_x_forwarded_proto != "https") {
-      rewrite ^(.*)$ https://$server_name$1 permanent;
-    }
-  }
-
-  server {
-    listen 80;
-    server_name flexcareers.com.au flexcareers.co.nz <%= node[:hostname] %>;
-
-    rewrite ^(.*)$ https://www.$server_name$1 permanent;
-  }
-
-  server {
-    listen 1443;
-    server_name flexcareers.com.au flexcareers.co.nz <%= node[:hostname] %>;
-
-    rewrite ^(.*)$ https://www.$server_name$1 permanent;
-  }
 
   server {
     listen 1443;
@@ -251,6 +229,53 @@
       root <%= @application[:absolute_document_root] %>;
     }
   }
+
+  server {
+    listen 80;
+    server_name www.flexcareers.com.au;
+
+    if ($http_x_forwarded_proto != "https") {
+      rewrite ^(.*)$ https://$server_name$1 permanent;
+    }
+  }
+
+  server {
+    listen 80;
+    server_name www.flexcareers.co.nz;
+
+    if ($http_x_forwarded_proto != "https") {
+      rewrite ^(.*)$ https://$server_name$1 permanent;
+    }
+  }
+
+  server {
+    listen 80;
+    server_name flexcareers.com.au;
+
+    rewrite ^(.*)$ https://www.$server_name$1 permanent;
+  }
+
+  server {
+    listen 80;
+    server_name flexcareers.co.nz;
+
+    rewrite ^(.*)$ https://www.$server_name$1 permanent;
+  }
+
+  server {
+    listen 1443;
+    server_name flexcareers.com.au;
+
+    rewrite ^(.*)$ https://www.$server_name$1 permanent;
+  }
+
+  server {
+    listen 1443;
+    server_name flexcareers.co.nz;
+
+    rewrite ^(.*)$ https://www.$server_name$1 permanent;
+  }
+  
 <% else %>
   upstream unicorn_<%= @application[:domains].first %> {
    server unix:<%= @application[:deploy_to]%>/shared/sockets/unicorn.sock fail_timeout=0;
