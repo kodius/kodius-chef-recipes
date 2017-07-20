@@ -183,6 +183,28 @@
       add_header Access-Control-Allow-Origin *;
     }
 
+    location /nginx_status {
+      stub_status on;
+      access_log off;
+      allow 127.0.0.1;
+      deny all;
+    }
+
+    location ~ ^/assets/ {
+      gzip_static on;
+      expires max;
+      add_header Cache-Control public;
+      add_header Access-Control-Allow-Origin *;
+
+      add_header ETag "";
+      break;
+    }
+
+    error_page 500 502 503 504 /500.html;
+    location = /500.html {
+      root <%= @application[:absolute_document_root] %>;
+    }
+
     location / {
       try_files $uri/index.html $uri/index.htm @unicorn;
     }
@@ -207,27 +229,6 @@
       }
     }
 
-    location /nginx_status {
-      stub_status on;
-      access_log off;
-      allow 127.0.0.1;
-      deny all;
-    }
-
-    location ~ ^/assets/ {
-      gzip_static on;
-      expires max;
-      add_header Cache-Control public;
-      add_header Access-Control-Allow-Origin *;
-
-      add_header ETag "";
-      break;
-    }
-
-    error_page 500 502 503 504 /500.html;
-    location = /500.html {
-      root <%= @application[:absolute_document_root] %>;
-    }
   }
 
   server {
@@ -275,7 +276,7 @@
 
     rewrite ^(.*)$ https://www.$server_name$1 permanent;
   }
-  
+
 <% else %>
   upstream unicorn_<%= @application[:domains].first %> {
    server unix:<%= @application[:deploy_to]%>/shared/sockets/unicorn.sock fail_timeout=0;
@@ -317,6 +318,28 @@
       add_header Access-Control-Allow-Origin *;
     }
 
+    location /nginx_status {
+      stub_status on;
+      access_log off;
+      allow 127.0.0.1;
+      deny all;
+    }
+
+    location ~ ^/assets/ {
+      gzip_static on;
+      expires max;
+      add_header Cache-Control public;
+      add_header Access-Control-Allow-Origin *;
+
+      add_header ETag "";
+      break;
+    }
+
+    error_page 500 502 503 504 /500.html;
+    location = /500.html {
+      root <%= @application[:absolute_document_root] %>;
+    }
+
     location / {
       try_files $uri/index.html $uri/index.htm @unicorn;
     }
@@ -341,27 +364,6 @@
       }
     }
 
-    location /nginx_status {
-      stub_status on;
-      access_log off;
-      allow 127.0.0.1;
-      deny all;
-    }
-
-    location ~ ^/assets/ {
-      gzip_static on;
-      expires max;
-      add_header Cache-Control public;
-      add_header Access-Control-Allow-Origin *;
-
-      add_header ETag "";
-      break;
-    }
-
-    error_page 500 502 503 504 /500.html;
-    location = /500.html {
-      root <%= @application[:absolute_document_root] %>;
-    }
   }
 
 <% end %>
