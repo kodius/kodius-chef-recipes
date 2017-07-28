@@ -284,7 +284,7 @@
 
   server {
     listen 80;
-    server_name <%= @application[:domains].first %> ;
+    server_name <%= @application[:domains].join(" ") %> ;
 
     <% if @application[:log_format] %>
       <% @application[:log_format].each do |log_format_name| %>
