@@ -49,6 +49,11 @@
       return 503;
     }
 
+    # block spammy ua
+    if ($http_user_agent ~* "Mozilla/5.0 Jorgee"){
+      return 500;
+    }
+
     error_page 503 @maintenance;
     location @maintenance {
        rewrite  ^(.*)$  /system/maintenance.html last;
@@ -156,6 +161,10 @@
       return 503;
     }
 
+    # block spammy ua
+    if ($http_user_agent ~* "Mozilla/5.0 Jorgee"){
+      return 500;
+    }
 
     # blog redirect
     <% if @application[:environment_variables]["FLEXBLOGREDIRECT"].to_s == "true" %>
@@ -306,6 +315,11 @@
 
     if (-f $document_root/system/maintenance.html) {
       return 503;
+    }
+
+    # block spammy ua
+    if ($http_user_agent ~* "Mozilla/5.0 Jorgee"){
+      return 500;
     }
 
     error_page 503 @maintenance;
