@@ -54,6 +54,11 @@
       return 500;
     }
 
+    # prevent these from reaching server
+    location ~ (\.php|.aspx|.asp|myadmin) {
+      return 404;
+    }
+
     error_page 503 @maintenance;
     location @maintenance {
        rewrite  ^(.*)$  /system/maintenance.html last;
@@ -164,6 +169,11 @@
     # block spammy ua
     if ($http_user_agent ~* "Mozilla/5.0 Jorgee"){
       return 500;
+    }
+
+    # prevent these from reaching server
+    location ~ (\.php|.aspx|.asp|myadmin) {
+      return 404;
     }
 
     # blog redirect
@@ -320,6 +330,11 @@
     # block spammy ua
     if ($http_user_agent ~* "Mozilla/5.0 Jorgee"){
       return 500;
+    }
+
+    # prevent these from reaching server
+    location ~ (\.php|.aspx|.asp|myadmin) {
+      return 404;
     }
 
     error_page 503 @maintenance;
