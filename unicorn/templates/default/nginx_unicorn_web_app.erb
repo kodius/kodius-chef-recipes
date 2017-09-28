@@ -181,7 +181,7 @@
     }
 
     # prevent these from reaching server
-    location ~ (\.php|.aspx|.asp|myadmin) {
+    location ~ (\.(php|aspx|asp|myadmin)$) {
       return 404;
     }
 
@@ -342,7 +342,7 @@
     }
 
     # prevent these from reaching server
-    location ~ (\.php|.aspx|.asp|myadmin) {
+    location ~ (\.(php|aspx|asp|myadmin)$) {
       return 404;
     }
 
