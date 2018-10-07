@@ -266,6 +266,16 @@
     listen 80;
     server_name www.flexcareers.com.au;
 
+    location ~ ^/assets/ {
+      gzip_static on;
+      expires max;
+      add_header Cache-Control public;
+      add_header Access-Control-Allow-Origin *;
+
+      add_header ETag "";
+      break;
+    }
+
     if ($http_x_forwarded_proto != "https") {
       rewrite ^(.*)$ https://$server_name$1 permanent;
     }
@@ -274,6 +284,16 @@
   server {
     listen 80;
     server_name www.flexcareers.co.nz;
+
+    location ~ ^/assets/ {
+      gzip_static on;
+      expires max;
+      add_header Cache-Control public;
+      add_header Access-Control-Allow-Origin *;
+
+      add_header ETag "";
+      break;
+    }
 
     if ($http_x_forwarded_proto != "https") {
       rewrite ^(.*)$ https://$server_name$1 permanent;
