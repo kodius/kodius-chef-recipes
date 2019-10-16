@@ -73,6 +73,9 @@
 
         location / {
           try_files $uri/index.html $uri/index.htm @unicorn;
+          proxy_buffer_size         128k;
+          proxy_buffers             4 256k;
+          proxy_busy_buffers_size   256k;
         }
 
         location /nginx_status {
@@ -238,6 +241,9 @@
 
     location / {
       try_files $uri/index.html $uri/index.htm @unicorn;
+      proxy_buffer_size         128k;
+      proxy_buffers             4 256k;
+      proxy_busy_buffers_size   256k;
     }
 
     location @unicorn {
@@ -429,6 +435,9 @@
 
     location / {
       try_files $uri/index.html $uri/index.htm @unicorn;
+      proxy_buffer_size         128k;
+      proxy_buffers             4 256k;
+      proxy_busy_buffers_size   256k;
     }
 
     location @unicorn {
@@ -560,6 +569,9 @@
 
     location / {
       try_files $uri/index.html $uri/index.htm @unicorn;
+      proxy_buffer_size         128k;
+      proxy_buffers             4 256k;
+      proxy_busy_buffers_size   256k;
     }
 
     location @unicorn {
